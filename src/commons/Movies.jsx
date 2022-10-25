@@ -1,9 +1,14 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
+import { useSelector } from "react-redux";
 const Movies = ({ movies }) => {
+  const useremail = useSelector((state) => state.user.value);
+
   return (
     <div>
-      <h2 style={{ textAlign: "center", marginBottom: "1%" }}>CARS</h2>
+      <h2 style={{ textAlign: "center", marginBottom: "1%" }}>Movies</h2>
       <table style={{ marginLeft: "auto", marginRight: "auto" }}>
         <thead>
           <tr>
@@ -20,6 +25,17 @@ const Movies = ({ movies }) => {
         </thead>
         <tbody>
           {movies?.map(({ title, id, poster_path, release_date }) => {
+            console.log(movies);
+            const addFavoritos = () => {
+              axios.post("/api/favoritos", {
+                idpelicula: id,
+                title: title,
+                poster_path: poster_path,
+                release_date: release_date,
+                email: useremail,
+              });
+              alert("se ha agregado a favoritos");
+            };
             return (
               <tr key={id}>
                 <td>
@@ -34,6 +50,7 @@ const Movies = ({ movies }) => {
                 </td>
                 <td>
                   <h4 style={{ paddingRight: "40px" }}>{release_date}</h4>
+                  <button onClick={addFavoritos}>Agregar Favoritos</button>
                 </td>
               </tr>
             );

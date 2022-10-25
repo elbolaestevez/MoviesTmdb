@@ -8,6 +8,7 @@ const DetailsMovie = () => {
 
   const params = useParams();
   const id = params.id;
+
   useEffect(() => {
     axios
       .get(
