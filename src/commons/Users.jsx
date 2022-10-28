@@ -7,7 +7,7 @@ const Users = () => {
 
   useEffect(() => {
     axios.get(`/api/users`).then((res) => setUsuarios(res.data));
-  }, [usuarios]);
+  }, []);
   return (
     <>
       <h1>Todos los usuarios</h1>

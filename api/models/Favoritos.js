@@ -14,13 +14,16 @@ Favoritos.init(
     },
     idpeliculaoserie: {
       type: S.INTEGER,
-      unique: true,
     },
     release_date: {
       type: S.STRING,
     },
     tipo: {
       type: S.INTEGER,
+    },
+    unico: {
+      type: S.STRING,
+      unique: true,
     },
   },
   { sequelize: db, modelName: "favoritos" }

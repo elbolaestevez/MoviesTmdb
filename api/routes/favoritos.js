@@ -34,6 +34,7 @@ router.post("/", validateAuth, (req, res) => {
   })
     .then((data) => {
       const user = data;
+      console.log(idpeliculaoserie + title);
 
       Favoritos.create({
         title,
@@ -41,6 +42,7 @@ router.post("/", validateAuth, (req, res) => {
         poster_path,
         release_date,
         tipo,
+        unico: idpeliculaoserie + email,
       })
         .then((favorito) => favorito.setAuthor(user))
         .then((favorito) => res.send(favorito))
@@ -50,7 +52,8 @@ router.post("/", validateAuth, (req, res) => {
 });
 router.delete("/:id", validateAuth, function (req, res, next) {
   let id = req.params.id;
-  Favoritos.destroy({ where: { idpeliculaoserie: id } })
+  console.log("que pasooo", id);
+  Favoritos.destroy({ where: { unico: id } })
     .then((result) => res.send("result"))
     .catch((err) => console.log(err));
 });

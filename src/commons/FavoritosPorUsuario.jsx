@@ -13,7 +13,7 @@ const FavoritosPorUsuario = () => {
     axios
       .get(`/api/favoritos/${email}`)
       .then((res) => setdetailpelicula(res.data));
-  }, [email]);
+  }, []);
   return (
     <>
       {detailpelicula.map(

@@ -6,8 +6,9 @@ const Favoritos = () => {
   const [detailpelicula, setdetailpelicula] = useState([]);
   const useremail = useSelector((state) => state.user.value);
   const removeFavoritos = (idpelicula) => {
-    console.log(idpelicula);
-    axios.delete(`/api/favoritos/${idpelicula}`).then((removido) => {
+    let unico = idpelicula + useremail;
+    console.log(unico);
+    axios.delete(`/api/favoritos/${unico}`).then((removido) => {
       let detailpeliculaborrado = detailpelicula.filter(
         (fav) => fav.idpelicula !== idpelicula
       );
