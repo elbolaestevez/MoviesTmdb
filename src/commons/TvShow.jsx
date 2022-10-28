@@ -1,48 +1,55 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import "../css/movies.css";
+
 const TvShow = ({ tvshow }) => {
+  const useremail = useSelector((state) => state.user.value);
+
   return (
-    <div>
-      <h2 style={{ textAlign: "center", marginBottom: "1%" }}>CARS</h2>
-      <table style={{ marginLeft: "auto", marginRight: "auto" }}>
-        <thead>
-          <tr>
-            <td>
-              <h4 style={{ paddingRight: "40px" }}>Title</h4>
-            </td>
-            <td>
-              <h4 style={{ paddingRight: "40px" }}>Imagen</h4>
-            </td>
-            <td>
-              <h4 style={{ paddingRight: "40px" }}>Año</h4>
-            </td>
-          </tr>
-        </thead>
-        <tbody>
-          {tvshow?.map(({ name, id, poster_path, first_air_date }) => {
-            console.log(tvshow);
-            return (
-              <tr key={id}>
-                <td>
-                  <Link to={`/SearchTvshow/${id}`}>
-                    <h4 style={{ paddingRight: "40px" }}>{name}</h4>
-                  </Link>
-                </td>
-                <td>
-                  <img
-                    src={`https://image.tmdb.org/t/p/w500${poster_path}`}
-                  ></img>
-                </td>
-                <td>
-                  <h4 style={{ paddingRight: "40px" }}>{first_air_date}</h4>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+    <div className="abuelomovie">
+      {tvshow?.map(({ name, id, poster_path, first_air_date }) => {
+        const addFavoritos = () => {
+          axios
+            .post("/api/favoritos", {
+              idpeliculaoserie: id,
+              title: name,
+              poster_path: poster_path,
+              release_date: first_air_date,
+              email: useremail,
+              tipo: 2,
+            })
+            .then((movie) => {
+              // if (!movie) return alert("No estas registrado");
+              console.log("movie", movie);
+
+              alert("se ha agregado a favoritos");
+            })
+            .catch((err) => {
+              if (err.response.data == "pelicula o serie existe")
+                return alert("pelicula o series ya existe");
+              if (err.response.data == "no esta el token")
+                return alert("No hay token");
+            });
+        };
+
+        return (
+          <div key={id} className="cointainermovie">
+            <Link to={`/SearchTvshow/${id}`}>
+              <h4>{name}</h4>
+            </Link>
+            <img
+              src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+              className="imagen"
+            ></img>
+            <h4>{first_air_date}</h4>
+
+            <button onClick={addFavoritos}>Agregar Favoritos</button>
+          </div>
+        );
+      })}
     </div>
   );
 };
-
 export default TvShow;

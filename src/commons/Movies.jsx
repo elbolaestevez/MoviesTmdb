@@ -1,62 +1,54 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import "../css/movies.css";
 
 import { useSelector } from "react-redux";
 const Movies = ({ movies }) => {
   const useremail = useSelector((state) => state.user.value);
-
+  const [state, isFlipped] = useState([false]);
   return (
-    <div>
-      <h2 style={{ textAlign: "center", marginBottom: "1%" }}>Movies</h2>
-      <table style={{ marginLeft: "auto", marginRight: "auto" }}>
-        <thead>
-          <tr>
-            <td>
-              <h4 style={{ paddingRight: "40px" }}>Title</h4>
-            </td>
-            <td>
-              <h4 style={{ paddingRight: "40px" }}>Imagen</h4>
-            </td>
-            <td>
-              <h4 style={{ paddingRight: "40px" }}>Año</h4>
-            </td>
-          </tr>
-        </thead>
-        <tbody>
-          {movies?.map(({ title, id, poster_path, release_date }) => {
-            console.log(movies);
-            const addFavoritos = () => {
-              axios.post("/api/favoritos", {
-                idpelicula: id,
-                title: title,
-                poster_path: poster_path,
-                release_date: release_date,
-                email: useremail,
-              });
+    <div className="abuelomovie">
+      {movies?.map(({ title, id, poster_path, release_date }) => {
+        const addFavoritos = () => {
+          axios
+            .post("/api/favoritos", {
+              idpeliculaoserie: id,
+              title: title,
+              poster_path: poster_path,
+              release_date: release_date,
+              email: useremail,
+              tipo: 1,
+            })
+            .then((movie) => {
+              // if (!movie) return alert("No estas registrado");
+              console.log("movie", movie);
+
               alert("se ha agregado a favoritos");
-            };
-            return (
-              <tr key={id}>
-                <td>
-                  <Link to={`/SearchMovie/${id}`}>
-                    <h4 style={{ paddingRight: "40px" }}>{title}</h4>
-                  </Link>
-                </td>
-                <td>
-                  <img
-                    src={`https://image.tmdb.org/t/p/w500${poster_path}`}
-                  ></img>
-                </td>
-                <td>
-                  <h4 style={{ paddingRight: "40px" }}>{release_date}</h4>
-                  <button onClick={addFavoritos}>Agregar Favoritos</button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+            })
+            .catch((err) => {
+              if (err.response.data == "pelicula o serie existe")
+                return alert("pelicula o serie ya existe");
+              if (err.response.data == "no esta el token")
+                return alert("No has iniciado sesion");
+            });
+        };
+        return (
+          <div key={id} className="cointainermovie">
+            <Link to={`/SearchMovie/${id}`}>
+              <h4>{title}</h4>
+            </Link>
+
+            <img
+              src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+              className="imagen"
+            />
+
+            <h4>{release_date}</h4>
+            <button onClick={addFavoritos}>Agregar Favoritos</button>
+          </div>
+        );
+      })}
     </div>
   );
 };

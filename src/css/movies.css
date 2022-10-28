@@ -1,0 +1,38 @@
+.cointainermovie {
+  width: 30%;
+  margin: 10px auto;
+  border: 1px solid;
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  cursor: pointer;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transition: ease-in-out 600ms;
+}
+.containermovie:hover {
+  transform: scale(1.1);
+}
+.cointainermovie h4 {
+  font-size: 14px;
+}
+.imagen {
+  width: 130px;
+}
+.imagen:hover {
+  transform: scale(1.2);
+  transition: 0.4s;
+}
+.abuelomovie {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #b5838d;
+}
+
+.buscadorcontainer {
+  background-color: #b5838d;
+}
+/* flip card */

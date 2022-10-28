@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import axios from "axios";
-
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 const Register = () => {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
-  const [usuario, setusuario] = useState({});
+
+  const useremail = useSelector((state) => state.user.value);
 
   const handleInputemail = (event) => {
     setemail(event.target.value);
@@ -16,7 +17,10 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios.post("/api/users/register", { email, password }).then((usuario) => {
-      setusuario(usuario);
+      if (usuario.data == "no encontre")
+        return alert("usuario no se ha creado");
+
+      alert("se ha creado usuario");
     });
   };
   return (
@@ -39,6 +43,13 @@ const Register = () => {
         />
         <button type="submit">Registrar</button>
       </form>
+      {typeof useremail == "object" && (
+        <div>
+          <Link to="/Loguiar">
+            <button>Loguiar Usuario </button>
+          </Link>
+        </div>
+      )}
     </>
   );
 };

@@ -12,11 +12,15 @@ Favoritos.init(
     poster_path: {
       type: S.STRING,
     },
-    idpelicula: {
+    idpeliculaoserie: {
       type: S.INTEGER,
+      unique: true,
     },
     release_date: {
       type: S.STRING,
+    },
+    tipo: {
+      type: S.INTEGER,
     },
   },
   { sequelize: db, modelName: "favoritos" }

@@ -13,11 +13,15 @@ router.get("/", (req, res) => {
 router.post("/register", (req, res) => {
   console.log("hola");
   const user = req.body;
-
+  // User.findOne({ where: { email } }).then((user) => {})
   User.create(user)
 
-    .then((userCreated) => res.status(201).send(userCreated))
-    .catch((err) => console.log(err));
+    .then((userCreated) => {
+      console.log("que paso pablito2", userCreated);
+
+      res.status(201).send(userCreated);
+    })
+    .catch((err) => res.send("no encontre"));
 });
 router.post("/login", (req, res) => {
   const { email, password } = req.body;
@@ -28,20 +32,19 @@ router.post("/login", (req, res) => {
     user
       .validatePassword(password)
       .then((isValid) => {
-        if (!isValid) return res.sendStatus(401);
+        if (!isValid) return res.send("usuario no coincide");
 
         const payload = {
           email: user.email,
         };
 
         const token = generateToken(payload);
-        console.log("token", token);
-        console.log("payload", payload);
+
         res.cookie("token", token);
 
         res.send(payload);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => res.send("usuario no encontrado"));
   });
 });
 router.get("/secret", validateAuth, (req, res) => {

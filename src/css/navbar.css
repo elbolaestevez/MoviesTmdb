@@ -1,0 +1,27 @@
+* {
+  text-decoration: none;
+}
+.containernav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  background-color: #6d6875;
+}
+.containernav a {
+  color: black;
+  margin: auto 10px;
+}
+.desloguiar {
+  display: flex;
+}
+.desloguiar button {
+  height: 50%;
+  margin: auto;
+}
+.desloguiar p {
+  border: 1px solid;
+  margin-right: 10px;
+  padding: 2px;
+  background-color: #ffb4a2;
+}

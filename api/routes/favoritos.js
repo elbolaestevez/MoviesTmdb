@@ -11,6 +11,7 @@ router.get("/", validateAuth, (req, res) => {
 
 router.get("/:email", validateAuth, (req, res) => {
   const email = req.params.email;
+  console.log("email", email);
   Users.findOne({
     where: { email },
   })
@@ -25,19 +26,32 @@ router.get("/:email", validateAuth, (req, res) => {
 });
 
 router.post("/", validateAuth, (req, res) => {
-  const { email, title, idpelicula, poster_path, release_date } = req.body;
+  const { email, title, idpeliculaoserie, poster_path, release_date, tipo } =
+    req.body;
 
-  console.log("que llega por req", req.body);
   Users.findOne({
     where: { email },
   })
     .then((data) => {
       const user = data;
 
-      Favoritos.create({ title, idpelicula, poster_path, release_date })
+      Favoritos.create({
+        title,
+        idpeliculaoserie,
+        poster_path,
+        release_date,
+        tipo,
+      })
         .then((favorito) => favorito.setAuthor(user))
-        .then((favorito) => res.send(favorito));
+        .then((favorito) => res.send(favorito))
+        .catch((err) => res.status(401).send("pelicula o serie existe"));
     })
+    .catch((err) => console.log(err));
+});
+router.delete("/:id", validateAuth, function (req, res, next) {
+  let id = req.params.id;
+  Favoritos.destroy({ where: { idpeliculaoserie: id } })
+    .then((result) => res.send("result"))
     .catch((err) => console.log(err));
 });
 
