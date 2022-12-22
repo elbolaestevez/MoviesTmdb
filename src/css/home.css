@@ -1,1 +1,27 @@
+.buscadorcontainer button {
+  margin: auto;
+  border-radius: 10px;
+  padding: 0px 15px;
+  background-color: #6f1d1b;
+  font-weight: bold;
+  font-size: 15px;
+  border: none;
+  color: #ffe6a7;
+  margin-top: 10px;
+  width: 80%;
+}
+.buscadorcontainer input {
+  margin: auto;
+  border-radius: 10px;
+  padding: 0px 15px;
 
+  font-weight: bold;
+  font-size: 15px;
+  border: none;
+  color: #ffe6a7;
+  margin-top: 10px;
+  width: 70%;
+}
+::placeholder {
+  text-align: center;
+}

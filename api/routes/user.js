@@ -21,7 +21,7 @@ router.post("/register", (req, res) => {
 
       res.status(201).send(userCreated);
     })
-    .catch((err) => res.send("no encontre"));
+    .catch((err) => res.status(404).send("no encontre"));
 });
 router.post("/login", (req, res) => {
   const { email, password } = req.body;

@@ -6,7 +6,7 @@ import axios from "axios";
 
 const TopMovies = () => {
   const [toppelicula, setToppeliculas] = useState([]);
-
+  const [isdisplay, setdisplay] = useState("");
   useEffect(() => {
     axios
       .get(
@@ -18,8 +18,8 @@ const TopMovies = () => {
   return (
     <>
       {toppelicula.length ? <Carousel top={toppelicula} /> : null}
-      <SearchMovie />
-      {/* <SearchTvShow /> */}
+      <SearchMovie display={isdisplay} setdisplay={setdisplay} />
+      <SearchTvShow display={isdisplay} setdisplay={setdisplay} />
     </>
   );
 };

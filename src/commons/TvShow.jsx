@@ -5,10 +5,11 @@ import { useSelector } from "react-redux";
 import "../css/movies.css";
 
 const TvShow = ({ tvshow }) => {
+  const hasResults = tvshow?.length > 0;
   const useremail = useSelector((state) => state.user.value);
 
   return (
-    <div className="abuelomovie">
+    <div className={hasResults ? "abuelomovie" : "abuelomovie2"}>
       {tvshow?.map(({ name, id, poster_path, first_air_date }) => {
         const addFavoritos = () => {
           axios
@@ -36,13 +37,14 @@ const TvShow = ({ tvshow }) => {
 
         return (
           <div key={id} className="cointainermovie">
-            <Link to={`/SearchTvshow/${id}`}>
-              <h4>{name}</h4>
-            </Link>
             <img
               src={`https://image.tmdb.org/t/p/w500${poster_path}`}
               className="imagen"
             ></img>
+            <Link to={`/SearchTvshow/${id}`}>
+              <h4>{name}</h4>
+            </Link>
+
             <h4>{first_air_date}</h4>
 
             <button onClick={addFavoritos}>Agregar Favoritos</button>

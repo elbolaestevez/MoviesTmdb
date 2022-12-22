@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import Movies from "../commons/Movies";
 import axios from "axios";
 import "../css/movies.css";
+import SearchTvShow from "../components/SearchTvShow";
 
-const SearchMovie = () => {
+const SearchMovie = ({ display, setdisplay }) => {
   const [inputpelicula, setinputpelicula] = useState("");
   const [peliculasencontradas, setpeliculasencontradas] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -21,6 +22,7 @@ const SearchMovie = () => {
       .then((response) => response.data)
       .then((peliculas) => setpeliculasencontradas(peliculas.results))
       .finally(() => {
+        setdisplay("movie");
         setIsLoading(false);
       });
   };
@@ -33,13 +35,18 @@ const SearchMovie = () => {
         ) : null}
         <form onSubmit={handleSubmit}>
           <label>Buscar Pelicula</label>
-          <input type="text" name="buscarpelicula" onChange={handleInputs} />
+          <input
+            type="text"
+            name="buscarpelicula"
+            placeholder="buscar"
+            onChange={handleInputs}
+          />
 
-          <button type="submit">SUBMIT</button>
+          <button type="submit">Buscar</button>
         </form>
+        {/* <SearchTvShow /> */}
       </div>
-
-      <Movies movies={peliculasencontradas} />
+      {display === "movie" && <Movies movies={peliculasencontradas} />}
     </div>
   );
 };

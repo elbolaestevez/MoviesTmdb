@@ -36,6 +36,11 @@ const Login = () => {
         window.localStorage.setItem("user", JSON.stringify(usuario.data.email));
 
         navigate("/");
+      })
+      .catch((err) => {
+        if (err.response.status == 401) {
+          alert("no hay usuario con este nombre");
+        }
       });
   };
 
