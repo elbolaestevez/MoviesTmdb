@@ -3,10 +3,11 @@ import Carousel from "../components/Carousel";
 import SearchMovie from "../components/SearchMovie";
 import SearchTvShow from "../components/SearchTvShow";
 import axios from "axios";
+import Movies from "../commons/Movies";
 
 const TopMovies = () => {
   const [toppelicula, setToppeliculas] = useState([]);
-  const [isdisplay, setdisplay] = useState("");
+  const [data, setdata] = useState([]);
   useEffect(() => {
     axios
       .get(
@@ -18,8 +19,9 @@ const TopMovies = () => {
   return (
     <>
       {toppelicula.length ? <Carousel top={toppelicula} /> : null}
-      <SearchMovie display={isdisplay} setdisplay={setdisplay} />
-      <SearchTvShow display={isdisplay} setdisplay={setdisplay} />
+      <SearchMovie setdata={setdata} />
+      <SearchTvShow setdata={setdata} />
+      {data.length > 0 && <Movies data={data} />}
     </>
   );
 };

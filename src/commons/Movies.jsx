@@ -4,23 +4,31 @@ import { Link } from "react-router-dom";
 import "../css/movies.css";
 
 import { useSelector } from "react-redux";
-const Movies = ({ movies }) => {
-  const hasResults = movies?.length > 0;
+const Movies = ({ data }) => {
+  const hasResults = data?.length > 0;
   const useremail = useSelector((state) => state.user.value);
   const [state, isFlipped] = useState([false]);
 
   return (
     <div className={hasResults ? "abuelomovie" : "abuelomovie2"}>
-      {movies?.map(({ title, id, poster_path, release_date }) => {
+      {data?.map((item) => {
+        let itemdata = {
+          title: item.title || item.name,
+          id: item.id,
+          poster_path: item.poster_path,
+          release_date: item.release_date || item.first_air_date,
+          tipo: item.title ? 1 : 2,
+        };
+        // { title, id, poster_path, release_date }
         const addFavoritos = () => {
           axios
             .post("/api/favoritos", {
-              idpeliculaoserie: id,
-              title: title,
-              poster_path: poster_path,
-              release_date: release_date,
+              idpeliculaoserie: itemdata.id,
+              title: itemdata.title,
+              poster_path: itemdata.poster_path,
+              release_date: itemdata.release_date,
               email: useremail,
-              tipo: 1,
+              tipo: itemdata.tipo,
             })
             .then((movie) => {
               // if (!movie) return alert("No estas registrado");
@@ -36,16 +44,16 @@ const Movies = ({ movies }) => {
             });
         };
         return (
-          <div key={id} className="cointainermovie">
+          <div key={itemdata.id} className="cointainermovie">
             <img
-              src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+              src={`https://image.tmdb.org/t/p/w500${itemdata.poster_path}`}
               className="imagen"
             />
-            <Link to={`/SearchMovie/${id}`}>
-              <h4>{title}</h4>
+            <Link to={`/SearchMovie/${itemdata.id}`}>
+              <h4>{itemdata.title}</h4>
             </Link>
 
-            <h5>{release_date}</h5>
+            <h5>{itemdata.release_date}</h5>
             <button onClick={addFavoritos}>Agregar Favoritos</button>
           </div>
         );

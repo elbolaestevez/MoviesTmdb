@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import TvShow from "../commons/TvShow";
+
 import axios from "axios";
 
-const SearchTvShow = ({ display, setdisplay }) => {
+const SearchTvShow = ({ setdata }) => {
   const [inputtvshow, setinputTvShow] = useState("");
-  const [Tvshowssencontrados, setTvshows] = useState([]);
   const handleInputs = (event) => {
     setinputTvShow(event.target.value);
   };
@@ -15,10 +14,7 @@ const SearchTvShow = ({ display, setdisplay }) => {
         `https://api.themoviedb.org/3/search/tv?api_key=19810e339e7024271bcad7d3a8767450&language=en-US&page=1&query=${inputtvshow}&include_adult=false`
       )
       .then((response) => response.data)
-      .then((serie) => setTvshows(serie.results))
-      .then(() => {
-        setdisplay("tvshow");
-      });
+      .then((serie) => setdata(serie.results));
   };
 
   return (
@@ -31,7 +27,6 @@ const SearchTvShow = ({ display, setdisplay }) => {
           <button type="submit">SUBMIT</button>
         </form>
       </div>
-      {display === "tvshow" && <TvShow tvshow={Tvshowssencontrados} />}
     </div>
   );
 };

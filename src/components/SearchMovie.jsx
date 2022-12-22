@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import Movies from "../commons/Movies";
 import axios from "axios";
 import "../css/movies.css";
-import SearchTvShow from "../components/SearchTvShow";
 
-const SearchMovie = ({ display, setdisplay }) => {
+const SearchMovie = ({ setdata }) => {
   const [inputpelicula, setinputpelicula] = useState("");
-  const [peliculasencontradas, setpeliculasencontradas] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleInputs = (event) => {
@@ -20,9 +18,8 @@ const SearchMovie = ({ display, setdisplay }) => {
         `https://api.themoviedb.org/3/search/movie?api_key=19810e339e7024271bcad7d3a8767450&query=${inputpelicula}`
       )
       .then((response) => response.data)
-      .then((peliculas) => setpeliculasencontradas(peliculas.results))
+      .then((peliculas) => setdata(peliculas.results))
       .finally(() => {
-        setdisplay("movie");
         setIsLoading(false);
       });
   };
@@ -46,7 +43,6 @@ const SearchMovie = ({ display, setdisplay }) => {
         </form>
         {/* <SearchTvShow /> */}
       </div>
-      {display === "movie" && <Movies movies={peliculasencontradas} />}
     </div>
   );
 };
