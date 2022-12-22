@@ -1,0 +1,29 @@
+.sinlgeCard_img {
+  background-position: center center;
+  background-size: cover;
+  position: relative;
+}
+.singlecard_img ::before {
+  content: "";
+  background: linear-gradient(rgb(0, 0, 0, 1), rgb(0, 0, 0, 1));
+  position: absolute;
+  height: 93.3vh;
+  width: 100%;
+  opacity: 0.3;
+  z-index: -100;
+}
+
+.sinlgeCard_container {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  height: 93.3vh;
+  color: #ffe6a7;
+}
+
+.sinlgeCard_description {
+  font-size: 1.4rem;
+  margin-left: 50px;
+  color: #ffe6a7;
+}

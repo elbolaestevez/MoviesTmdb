@@ -1,0 +1,38 @@
+.abuelofavoritos {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 20px;
+}
+.cointainerfavoritos {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  margin: 10px auto;
+}
+/* .cointainerfavoritos img {
+  background-position: center center;
+  background-size: cover;
+  position: relative;
+  z-index: -1;
+} */
+
+.imgfavoritos {
+  width: 180px;
+  padding: 5px;
+  min-height: 260px;
+  max-height: 260px;
+  margin: auto;
+  border-radius: 15px;
+}
+.cointainerfavoritos h1 {
+  font-size: 14px;
+  color: #ffe6a7;
+  margin: 10px;
+  text-align: center;
+}
+.cointainerfavoritos p {
+  font-size: 14px;
+  color: #ffe6a7;
+  margin: 10px;
+  text-align: center;
+}

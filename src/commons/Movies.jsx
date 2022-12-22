@@ -5,10 +5,12 @@ import "../css/movies.css";
 
 import { useSelector } from "react-redux";
 const Movies = ({ movies }) => {
+  const hasResults = movies?.length > 0;
   const useremail = useSelector((state) => state.user.value);
   const [state, isFlipped] = useState([false]);
+
   return (
-    <div className="abuelomovie">
+    <div className={hasResults ? "abuelomovie" : "abuelomovie2"}>
       {movies?.map(({ title, id, poster_path, release_date }) => {
         const addFavoritos = () => {
           axios
@@ -35,16 +37,15 @@ const Movies = ({ movies }) => {
         };
         return (
           <div key={id} className="cointainermovie">
-            <Link to={`/SearchMovie/${id}`}>
-              <h4>{title}</h4>
-            </Link>
-
             <img
               src={`https://image.tmdb.org/t/p/w500${poster_path}`}
               className="imagen"
             />
+            <Link to={`/SearchMovie/${id}`}>
+              <h4>{title}</h4>
+            </Link>
 
-            <h4>{release_date}</h4>
+            <h5>{release_date}</h5>
             <button onClick={addFavoritos}>Agregar Favoritos</button>
           </div>
         );

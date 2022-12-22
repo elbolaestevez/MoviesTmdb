@@ -25,7 +25,8 @@ router.post("/register", (req, res) => {
 });
 router.post("/login", (req, res) => {
   const { email, password } = req.body;
-  console.log("llego pablito");
+
+  console.log(req.body);
 
   User.findOne({ where: { email } }).then((user) => {
     if (!user) return res.sendStatus(401);
@@ -41,7 +42,7 @@ router.post("/login", (req, res) => {
         const token = generateToken(payload);
 
         res.cookie("token", token);
-
+        console.log(payload);
         res.send(payload);
       })
       .catch((err) => res.send("usuario no encontrado"));

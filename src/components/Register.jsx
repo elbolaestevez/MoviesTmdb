@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+
 import { useSelector } from "react-redux";
+import "../css/loguiarse.css";
 const Register = () => {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
@@ -24,9 +25,9 @@ const Register = () => {
     });
   };
   return (
-    <>
+    <div className="login">
       <h1>Crear Usuario</h1>
-      <form onSubmit={handleSubmit}>
+      <form className="form" onSubmit={handleSubmit}>
         <input
           aria-label="Email address"
           type="text"
@@ -43,14 +44,8 @@ const Register = () => {
         />
         <button type="submit">Registrar</button>
       </form>
-      {typeof useremail == "object" && (
-        <div>
-          <Link to="/Loguiar">
-            <button>Loguiar Usuario </button>
-          </Link>
-        </div>
-      )}
-    </>
+      {typeof useremail == "object" && <div></div>}
+    </div>
   );
 };
 export default Register;

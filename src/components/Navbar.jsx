@@ -27,39 +27,39 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="containernav">
-      <Link to="/">Home</Link>
+    <div className="navbar_container">
+      <div className="navbar_menu">
+        <ul>
+          <Link to="/">
+            <li>Home</li>
+          </Link>
 
-      <div>
-        <Link to="/SearchMovie">Buscar Pelicula</Link>
-      </div>
-      <div>
-        <Link to="/SearchTvShow">Buscar TvShow</Link>
-      </div>
-      <div>
-        <Link to="/Toppeliculas">Top Peliculas</Link>
-      </div>
-      <div>
-        <Link to="/Registro"> Registro Usuario/Login</Link>
-      </div>
+          <Link to="/Loguiar">
+            {" "}
+            <li>Registro Usuario/Login</li>{" "}
+          </Link>
 
-      <div>
-        <Link to="/Favoritos">Favoritos</Link>
-      </div>
-      <div>
-        <Link to="/Usuarios">Usuarios</Link>
+          <Link to="/Favoritos">
+            <li>Favoritos</li>
+          </Link>
+
+          <Link to="/Usuarios">
+            <li>Usuarios</li>
+          </Link>
+        </ul>
       </div>
       {/* {useremail != null ? <h2>logueado</h2> : <h2>deslogueado</h2>} */}
-
-      {typeof useremail !== "object" && (
-        <div className="desloguiar">
-          <p>{useremail}</p>
-          <button onClick={Desloguiar} type="submit">
-            Desloguiar
-          </button>
-        </div>
-      )}
-    </nav>
+      <div className="navbar_menu">
+        {typeof useremail !== "object" && (
+          <div className="desloguiar">
+            <p>{useremail}</p>
+            <button onClick={Desloguiar} type="submit">
+              Desloguiar
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 

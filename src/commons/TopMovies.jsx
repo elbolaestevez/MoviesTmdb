@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-
+import Carousel from "../components/Carousel";
+import SearchMovie from "../components/SearchMovie";
+import SearchTvShow from "../components/SearchTvShow";
 import axios from "axios";
 
 const TopMovies = () => {
@@ -12,17 +14,12 @@ const TopMovies = () => {
       )
       .then((res) => setToppeliculas(res.data.results));
   }, []);
+
   return (
     <>
-      {toppelicula.map(({ title, poster_path, vote_average }) => {
-        return (
-          <div className="detailcs">
-            <h1>{title}</h1>
-            <p>{vote_average}</p>
-            <img src={`https://image.tmdb.org/t/p/w500${poster_path}`}></img>
-          </div>
-        );
-      })}
+      {toppelicula.length ? <Carousel top={toppelicula} /> : null}
+      <SearchMovie />
+      {/* <SearchTvShow /> */}
     </>
   );
 };

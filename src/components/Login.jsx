@@ -3,28 +3,15 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { setUser as setGlobalUser } from "../state/user";
 import { useDispatch } from "react-redux";
-import { GoogleLogin, GoogleLogout } from "react-google-login";
-import { gapi } from "gapi-script";
-
-// import { GoogleLogin } from "react-google-login";
+import "../css/loguiarse.css";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [profile, setProfile] = useState([]);
+
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
-  const clientId =
-    "816576963998-36f3kgn9v58khmfu27dsor6j4tsr9l54.apps.googleusercontent.com";
-  useEffect(() => {
-    const initClient = () => {
-      gapi.client.init({
-        clientId: clientId,
-        scope: "",
-      });
-    };
-    gapi.load("client:auth2", initClient);
-  });
 
   const handleInputemail = (event) => {
     setemail(event.target.value);
@@ -32,23 +19,7 @@ const Login = () => {
   const handleInputpassword = (event) => {
     setpassword(event.target.value);
   };
-  const onSuccess = (res) => {
-    // setemail(res.profileObj.email);
-    // setpassword(res.googleId);
-    setProfile(res.profileObj);
-    console.log(res.profileObj.email, res.googleId);
-  };
 
-  const onFailure = (err) => {
-    console.log("failed", err);
-  };
-
-  const logOut = () => {
-    setProfile(null);
-  };
-  // const responseGoogle = (event) => {
-  //   setemail(event.target.value);
-  // };
   const handleSubmit = (e) => {
     e?.preventDefault();
 
@@ -64,14 +35,14 @@ const Login = () => {
         dispatch(setGlobalUser(usuario.data.email));
         window.localStorage.setItem("user", JSON.stringify(usuario.data.email));
 
-        navigate("/SearchMovie");
+        navigate("/");
       });
   };
 
   return (
-    <>
-      <h1>Loguiar Usuario</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="login">
+      <form className="form" onSubmit={handleSubmit}>
+        <h2>Inicia Sesión</h2>
         <input
           aria-label="Email address"
           type="text"
@@ -87,36 +58,12 @@ const Login = () => {
           onChange={handleInputpassword}
         />
         <button type="submit">Loguiar</button>
+        <p>¿Aún no tienes una cuenta?</p>{" "}
+        <Link to="/Registro">
+          <button className="button2">Registrar </button>
+        </Link>
       </form>
-      <div>
-        <h2>React Google Login</h2>
-        <br />
-        <br />
-        {profile ? (
-          <div>
-            <img src={profile.imageUrl} alt="user image" />
-
-            <br />
-            <br />
-            <GoogleLogout
-              clientId={clientId}
-              buttonText="Log out"
-              onLogoutSuccess={logOut}
-            />
-          </div>
-        ) : (
-          <GoogleLogin
-            clientId={clientId}
-            buttonText="Sign in with Google"
-            onSuccess={onSuccess}
-            onFailure={onFailure}
-            cookiePolicy={"single_host_origin"}
-            isSignedIn={true}
-          />
-        )}
-      </div>
-      ,
-    </>
+    </div>
   );
 };
 export default Login;

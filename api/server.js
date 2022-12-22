@@ -12,7 +12,7 @@ app.use(cookieParser());
 // app.use(cors());
 app.use("/api", routes);
 
-db.sync({ force: true }).then(() => {
+db.sync({ force: false }).then(() => {
   app.listen(3001, () => {
     console.log("server levantado en puerto 3001");
   });

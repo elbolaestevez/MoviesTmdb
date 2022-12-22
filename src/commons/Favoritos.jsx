@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import "../css/favoritos.css";
 import { useSelector } from "react-redux";
 const Favoritos = () => {
   const [detailpelicula, setdetailpelicula] = useState([]);
@@ -24,11 +25,27 @@ const Favoritos = () => {
       .then((res) => setdetailpelicula(res.data));
   }, [detailpelicula]);
   return (
-    <>
+    <div className="abuelofavoritos">
       {detailpelicula.map(
-        ({ title, poster_path, release_date, idpeliculaoserie, tipo }, i) => {
+        (
+          {
+            title,
+            poster_path,
+            release_date,
+            idpeliculaoserie,
+            tipo,
+            backdrop_path,
+          },
+          i
+        ) => {
           return (
-            <div key={i} className="detailcs">
+            <div
+              className="cointainerfavoritos"
+              key={i}
+              style={{
+                backgroundImage: `url(https://image.tmdb.org/t/p/original/${backdrop_path})`,
+              }}
+            >
               {tipo == 1 ? (
                 <Link to={`/SearchMovie/${idpeliculaoserie}`}>
                   <h1>{title}</h1>
@@ -41,7 +58,11 @@ const Favoritos = () => {
 
               <p>{release_date}</p>
               {tipo == 1 ? <p>Pelicula</p> : <p>Programa</p>}
-              <img src={`https://image.tmdb.org/t/p/w500${poster_path}`}></img>
+
+              <img
+                src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+                className="imgfavoritos"
+              ></img>
               <button onClick={() => removeFavoritos(idpeliculaoserie)}>
                 Remover Favoritos
               </button>
@@ -49,7 +70,7 @@ const Favoritos = () => {
           );
         }
       )}
-    </>
+    </div>
   );
 };
 export default Favoritos;
