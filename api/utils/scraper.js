@@ -1,9 +1,10 @@
 const puppeteer = require("puppeteer");
-const scraperByMovie = async (title = "harry") => {
+const scraperByMovie = async (title) => {
+  console.log("holaaa2", title);
   //   console.log("hola", title);
   let movieUrl = `https://www.sensacine.com/buscar/?q=${title}`;
   let browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
     // args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
   let page = await browser.newPage();
@@ -16,24 +17,24 @@ const scraperByMovie = async (title = "harry") => {
   //   await page.click("#didomi-notice-agree-button");
   const links = await page.evaluate(() => {
     const elements = document.querySelectorAll(".rating-holder a");
-    console.log("elements", elements);
+    // console.log("elements", elements);
     let links = [];
     for (let element of elements) {
       links.push(element.href);
     }
     return links;
   });
-  console.log("links", links);
+  // console.log("links", links);
 
   const match = links.filter((element) =>
     element.includes("criticas-espectadores")
   );
-  console.log("match1", match);
+  // console.log("match1", match);
   //   (enlaces = []), (busqueda = []);
 
   let busqueda = [];
   for (let enlace of match) {
-    console.log("enlace", enlace);
+    // console.log("enlace", enlace);
     await page.goto(enlace);
     //  await page.screenshot({ path: "foto.jpg" });
     //  await page.click("#didomi-notice-agree-button");
@@ -58,13 +59,15 @@ const scraperByMovie = async (title = "harry") => {
 
       return tmp;
     });
+
     busqueda.push(dataend);
-    console.log("dataend", dataend);
+    return dataend;
+
+    // console.log(busqueda);
   }
+
   await browser.close();
 };
-
-scraperByMovie();
 
 // const ScraperTools = {
 //   scraperByMovie,

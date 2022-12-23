@@ -17,7 +17,6 @@ const DetailsTvShow = () => {
   }, [id]);
   if (detailtvshow.name) {
     {
-      console.log("hola", detailtvshow);
     }
     return (
       <div

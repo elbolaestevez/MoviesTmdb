@@ -12,7 +12,6 @@ const Carousel = ({ top }) => {
     duration: 800,
     autoplaySpeed: 3000,
   };
-  console.log("top", top);
   return (
     <Grid>
       <section className="slider">

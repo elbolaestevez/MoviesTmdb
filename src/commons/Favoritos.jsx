@@ -8,12 +8,10 @@ const Favoritos = () => {
   const useremail = useSelector((state) => state.user.value);
   const removeFavoritos = (idpelicula) => {
     let unico = idpelicula + useremail;
-    console.log(unico);
     axios.delete(`/api/favoritos/${unico}`).then((removido) => {
       let detailpeliculaborrado = detailpelicula.filter(
         (fav) => fav.idpelicula !== idpelicula
       );
-      console.log(detailpeliculaborrado);
       //   setdetailpelicula(detailpelicula);
     });
 

@@ -2,16 +2,26 @@ const express = require("express");
 const Favoritos = require("../models/Favoritos");
 const Users = require("../models/User");
 const { validateAuth } = require("../middlewares/auth");
+const scraper = require("../utils/scraper");
 const router = express.Router();
 router.get("/", validateAuth, (req, res) => {
   Favoritos.findAll({ include: { model: Users, as: "author" } })
     .then((users) => res.status(200).send(users))
     .catch((err) => res.status(400).send(err));
 });
+//web scrapping
+router.post("/scraper/movie", async function (req, res) {
+  try {
+    let title = req.body.title;
+
+    let moviecritics = await scraper.scraperByMovie(title);
+
+    res.send(moviecritics);
+  } catch (error) {}
+});
 
 router.get("/:email", validateAuth, (req, res) => {
   const email = req.params.email;
-  console.log("email", email);
   Users.findOne({
     where: { email },
   })
@@ -34,7 +44,6 @@ router.post("/", validateAuth, (req, res) => {
   })
     .then((data) => {
       const user = data;
-      console.log(idpeliculaoserie + title);
 
       Favoritos.create({
         title,
@@ -52,7 +61,6 @@ router.post("/", validateAuth, (req, res) => {
 });
 router.delete("/:id", validateAuth, function (req, res, next) {
   let id = req.params.id;
-  console.log("que pasooo", id);
   Favoritos.destroy({ where: { unico: id } })
     .then((result) => res.send("result"))
     .catch((err) => console.log(err));

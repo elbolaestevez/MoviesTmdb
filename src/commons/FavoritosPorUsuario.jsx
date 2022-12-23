@@ -9,7 +9,6 @@ const FavoritosPorUsuario = () => {
   const useremail = useSelector((state) => state.user.value);
   const params = useParams();
   const email = params.email;
-  console.log(email);
   useEffect(() => {
     axios
       .get(`/api/favoritos/${email}`)

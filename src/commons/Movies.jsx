@@ -32,7 +32,6 @@ const Movies = ({ data }) => {
             })
             .then((movie) => {
               // if (!movie) return alert("No estas registrado");
-              console.log("movie", movie);
 
               alert("se ha agregado a favoritos");
             })

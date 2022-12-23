@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Movies from "../commons/Movies";
 import axios from "axios";
 import "../css/movies.css";
+import { useEffect } from "react";
 
 const SearchMovie = ({ setdata }) => {
   const [inputpelicula, setinputpelicula] = useState("");
@@ -19,6 +20,9 @@ const SearchMovie = ({ setdata }) => {
       )
       .then((response) => response.data)
       .then((peliculas) => setdata(peliculas.results))
+      .then((a) => {
+        setinputpelicula(" ");
+      })
       .finally(() => {
         setIsLoading(false);
       });
@@ -33,6 +37,7 @@ const SearchMovie = ({ setdata }) => {
         <form onSubmit={handleSubmit}>
           <label>Buscar Pelicula</label>
           <input
+            value={inputpelicula}
             type="text"
             name="buscarpelicula"
             placeholder="buscar"
