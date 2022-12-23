@@ -25,3 +25,8 @@
 ::placeholder {
   text-align: center;
 }
+.buscador {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

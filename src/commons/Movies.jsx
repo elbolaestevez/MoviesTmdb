@@ -49,9 +49,15 @@ const Movies = ({ data }) => {
               src={`https://image.tmdb.org/t/p/w500${itemdata.poster_path}`}
               className="imagen"
             />
-            <Link to={`/SearchMovie/${itemdata.id}`}>
-              <h4>{itemdata.title}</h4>
-            </Link>
+            {itemdata.tipo == 1 ? (
+              <Link to={`/SearchMovie/${itemdata.id}`}>
+                <h4>{itemdata.title}</h4>
+              </Link>
+            ) : (
+              <Link to={`/SearchTvShow/${itemdata.id}`}>
+                <h4>{itemdata.title}</h4>
+              </Link>
+            )}
 
             <h5>{itemdata.release_date}</h5>
             <button onClick={addFavoritos}>Agregar Favoritos</button>

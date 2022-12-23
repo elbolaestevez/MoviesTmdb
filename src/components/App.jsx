@@ -16,7 +16,6 @@ import { useDispatch } from "react-redux";
 import Home from "./Home";
 import axios from "axios";
 import "../css/app.css";
-import ThemeContextProvider from "../contexts/ThemeContext";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -36,24 +35,23 @@ const App = () => {
     <div className="app">
       <Navbar />
       {/* {console.log(user)} */}
-      <ThemeContextProvider>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/SearchMovie" element={<SearchMovie />} />
-          <Route path="/SearchTvshow" element={<SearchTvShow />} />
-          <Route element={<DetailsMovie />} path="/SearchMovie/:id" />
-          <Route element={<DetailsTvShow />} path="/SearchTvshow/:id" />
-          <Route
-            element={<FavoritosPorUsuario />}
-            path="/FavoritosPorUsuario/:email"
-          />
-          <Route element={<TopMovies />} path="/Toppeliculas" />
-          <Route element={<Register />} path="/Registro" />
-          <Route element={<Login />} path="/Loguiar" />
-          <Route element={<Favoritos />} path="/Favoritos" />
-          <Route element={<Users />} path="/Usuarios" />
-        </Routes>
-      </ThemeContextProvider>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/SearchMovie" element={<SearchMovie />} />
+        <Route path="/SearchTvshow" element={<SearchTvShow />} />
+        <Route element={<DetailsMovie />} path="/SearchMovie/:id" />
+        <Route element={<DetailsTvShow />} path="/SearchTvshow/:id" />
+        <Route
+          element={<FavoritosPorUsuario />}
+          path="/FavoritosPorUsuario/:email"
+        />
+        <Route element={<TopMovies />} path="/Toppeliculas" />
+        <Route element={<Register />} path="/Registro" />
+        <Route element={<Login />} path="/Loguiar" />
+        <Route element={<Favoritos />} path="/Favoritos" />
+        <Route element={<Users />} path="/Usuarios" />
+      </Routes>
     </div>
   );
 };

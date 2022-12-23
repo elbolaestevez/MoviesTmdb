@@ -19,8 +19,10 @@ const TopMovies = () => {
   return (
     <>
       {toppelicula.length ? <Carousel top={toppelicula} /> : null}
-      <SearchMovie setdata={setdata} />
-      <SearchTvShow setdata={setdata} />
+      <div className="buscador">
+        <SearchMovie setdata={setdata} />
+        <SearchTvShow setdata={setdata} />
+      </div>
       {data.length > 0 && <Movies data={data} />}
     </>
   );
