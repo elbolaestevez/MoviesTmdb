@@ -19,7 +19,6 @@ const Navbar = () => {
       .post("/api/users/logout")
 
       .then((usuario) => {
-        alert("Te has desloguiado");
         dispatch(setGlobalUser({}));
         window.localStorage.removeItem("user");
       });

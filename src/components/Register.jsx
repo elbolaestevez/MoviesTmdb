@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-
+import Swal from "sweetalert2";
 import { useSelector } from "react-redux";
 import "../css/loguiarse.css";
 const Register = () => {
@@ -19,9 +19,17 @@ const Register = () => {
     e.preventDefault();
     axios.post("/api/users/register", { email, password }).then((usuario) => {
       if (usuario.data == "no encontre")
-        return alert("usuario no se ha creado");
+        return Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "usuario no se ha creado",
+        });
 
-      alert("se ha creado usuario");
+      Swal.fire({
+        icon: "success",
+        title: "Sent",
+        text: "El usuario se ha creado",
+      });
     });
   };
   return (

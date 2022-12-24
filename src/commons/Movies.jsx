@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../css/movies.css";
+import Swal from "sweetalert2";
 
 import { useSelector } from "react-redux";
 const Movies = ({ data }) => {
@@ -31,15 +32,25 @@ const Movies = ({ data }) => {
               tipo: itemdata.tipo,
             })
             .then((movie) => {
-              // if (!movie) return alert("No estas registrado");
-
-              alert("se ha agregado a favoritos");
+              Swal.fire({
+                icon: "success",
+                title: "Yes",
+                text: "Se ha agregado a favoritos",
+              });
             })
             .catch((err) => {
               if (err.response.data == "pelicula o serie existe")
-                return alert("pelicula o serie ya existe");
+                return Swal.fire({
+                  icon: "error",
+                  title: "Oops...",
+                  text: "Pelicula o serie ya esta en tus favoritos",
+                });
               if (err.response.data == "no esta el token")
-                return alert("No has iniciado sesion");
+                return Swal.fire({
+                  icon: "info",
+                  title: "Oops...",
+                  text: "No has iniciado sesión",
+                });
             });
         };
         return (

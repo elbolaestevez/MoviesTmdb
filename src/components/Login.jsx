@@ -5,6 +5,7 @@ import { setUser as setGlobalUser } from "../state/user";
 import { useDispatch } from "react-redux";
 import "../css/loguiarse.css";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -30,8 +31,15 @@ const Login = () => {
       })
       .then((usuario) => {
         if (usuario.data == "usuario no coincide")
-          return alert("usuario no ha loguiado, intente otra vez");
-        alert("has iniciado sesion");
+          return Swal.fire({
+            icon: "error",
+            title: "Usuario no logueado",
+          });
+        Swal.fire({
+          icon: "success",
+          title: "Sent",
+          text: "has iniciado sesion",
+        });
         dispatch(setGlobalUser(usuario.data.email));
         window.localStorage.setItem("user", JSON.stringify(usuario.data.email));
 
@@ -39,7 +47,11 @@ const Login = () => {
       })
       .catch((err) => {
         if (err.response.status == 401) {
-          alert("no hay usuario con este nombre");
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "No hay usuario con este nombre",
+          });
         }
       });
   };
