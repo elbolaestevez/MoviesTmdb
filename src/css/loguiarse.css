@@ -21,7 +21,7 @@
 
 .login button {
   padding: 10px;
-  background-color: #432818;
+  background-color: #0f0606;
   color: #ffe6a7;
   font-weight: bold;
 }
@@ -33,13 +33,13 @@
   margin: 5px;
 }
 .login a {
-  background-color: #432818;
+  background-color: #0f0606;
   color: #ffe6a7;
   font-weight: bold;
 }
 
 .login a button {
-  background-color: #432818;
+  background-color: #0f0606;
   color: #ffe6a7;
   font-weight: bold;
   width: 100%;

@@ -6,7 +6,7 @@
   align-items: center;
   box-shadow: 0px 2px 10px rgba(255, 255, 255, 0.4);
   font-weight: bold;
-  background-color: #99582a;
+  background-color: #200b0b;
 }
 
 .navbar_menu {
@@ -32,7 +32,7 @@ a {
   text-decoration: none;
 }
 a:hover {
-  color: #6f1d1b;
+  color: #2f0000;
 }
 p {
   color: #ffe6a7;

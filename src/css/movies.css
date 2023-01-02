@@ -47,9 +47,9 @@
   min-height: 260px;
   max-height: 260px;
   margin: 10px 5px;
-
+  border: 1px solid #650000;
   border-radius: 15px;
-  box-shadow: 0px 0px 10px #161616; /*el shadow lo tuve q hacer con el margin y no con el padding, tuve que borrar el padding para q quede bien*/
+  box-shadow: 0px 0px 10px #650000; /*el shadow lo tuve q hacer con el margin y no con el padding, tuve que borrar el padding para q quede bien*/
 }
 .imagen:hover {
   transform: scale(1.2);
@@ -60,19 +60,19 @@
   display: flex;
   flex-direction: column;
   margin-top: 30px;
-  background-color: #432818;
+  background-color: #0f0606;
 }
 .todo2 {
   display: flex;
   flex-direction: column;
   margin-top: 50px;
-  background-color: #432818;
+  background-color: #0f0606;
 }
 .buscadorcontainer {
   align-items: center;
   display: flex;
   justify-content: center;
-  background-color: #432818;
+  background-color: #0f0606;
 }
 .buscadorcontainer form label {
   color: #ffe6a7;

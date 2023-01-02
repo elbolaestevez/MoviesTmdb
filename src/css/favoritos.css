@@ -18,12 +18,12 @@
 
 .imgfavoritos {
   width: 68%;
-  box-shadow: 0px 0px 20px #161616;
+  box-shadow: 0px 0px 20px #490000;
   min-height: 260px;
   max-height: 260px;
   margin: auto;
   border-radius: 15px;
-  border: 1px solid black; /*puse borde a la imagen para que quede mas lindo*/
+  border: 1px solid #650000; /*puse borde a la imagen para que quede mas lindo*/
 }
 
 .cointainerfavoritos h1 {
