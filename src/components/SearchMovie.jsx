@@ -3,6 +3,7 @@ import Movies from "../commons/Movies";
 import axios from "axios";
 import "../css/movies.css";
 import { useEffect } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const SearchMovie = ({ setdata }) => {
   const [inputpelicula, setinputpelicula] = useState("");
@@ -31,9 +32,7 @@ const SearchMovie = ({ setdata }) => {
   return (
     <div className="todo">
       <div className="buscadorcontainer">
-        {isLoading ? (
-          <img src="https://media.elpatagonico.com/p/578075a8af20e85dd747f7a73570e71a/adjuntos/193/imagenes/038/101/0038101382/riquelmajpg.jpg"></img>
-        ) : null}
+        {isLoading ? <CircularProgress /> : null}
         <form onSubmit={handleSubmit}>
           <label>Buscar Pelicula</label>
           <input

@@ -2,6 +2,7 @@ const puppeteer = require("puppeteer");
 const scraperByMovie = async (title) => {
   console.log("holaaa2", title);
   //   console.log("hola", title);
+
   let movieUrl = `https://www.sensacine.com/buscar/?q=${title}`;
   let browser = await puppeteer.launch({
     headless: true,

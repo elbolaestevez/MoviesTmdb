@@ -3,13 +3,29 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import "../css/detail.css";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const DetailsMovie = () => {
   const [detailpelicula, setdetailpelicula] = useState({});
   const [critics, setcritics] = useState({});
+  const [divcr, setdivcritica] = useState("divcritica");
+  const [isLoading, setIsLoading] = useState("false2");
+  const [comentario, setcomentario] = useState(null);
 
   const params = useParams();
   const id = params.id;
+  const handleMore = () => {
+    if (critics.data) {
+      setIsLoading(false);
+    } else if (comentario) {
+      setIsLoading(true);
+    }
+    if (divcr == "divcritica") {
+      setdivcritica("divcritica2");
+    } else if (divcr == "divcritica2") {
+      setdivcritica("divcritica");
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,13 +34,18 @@ const DetailsMovie = () => {
       );
 
       setdetailpelicula(resp.data);
+
       const infoscrap = await axios.post("/api/favoritos/scraper/movie", {
         title: resp.data.title,
       });
+
+      setIsLoading(false);
       setcritics(infoscrap);
+      setcomentario("no hay critica");
     };
     fetchData();
   }, [id]);
+  useEffect(() => {}, [divcr]);
   if (detailpelicula.title) {
     const { id, backdrop_path, poster_path, title, overview, vote_average } =
       detailpelicula;
@@ -52,12 +73,21 @@ const DetailsMovie = () => {
               <strong>Puntuacion:</strong> {vote_average} / 10
             </p>
             <p>{overview || "Aun no contamos con su descripcion"}</p>
+            <div className="divbuttoncritica">
+              <button className="buttoncritica" onClick={handleMore}>
+                View More
+              </button>
+            </div>
+            {isLoading === true ? <CircularProgress /> : null}
+
             {critics.data ? (
-              <div>
+              <div className={divcr}>
                 <p>{critics.data.innerUserOfReview}</p>
                 <p>{critics.data.innerTextOfReview}</p>
               </div>
-            ) : null}
+            ) : (
+              comentario
+            )}
 
             {/* {critics.data.innerTextOfReview}
             <p>{critics.data.innerUserOfReview}</p>

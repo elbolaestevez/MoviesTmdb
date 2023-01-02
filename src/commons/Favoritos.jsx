@@ -18,13 +18,15 @@ const Favoritos = () => {
     // });
   };
   useEffect(() => {
-    axios
-      .get(`/api/favoritos/${useremail}`)
-      .then((res) => setdetailpelicula(res.data));
-  }, [detailpelicula]);
+    if (useremail) {
+      axios
+        .get(`/api/favoritos/${useremail}`)
+        .then((res) => setdetailpelicula(res.data));
+    }
+  }, [useremail]);
   return (
     <div className="abuelofavoritos">
-      {detailpelicula.map(
+      {detailpelicula?.map(
         (
           {
             title,

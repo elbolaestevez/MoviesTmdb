@@ -17,22 +17,28 @@ router.post("/scraper/movie", async function (req, res) {
     let moviecritics = await scraper.scraperByMovie(title);
 
     res.send(moviecritics);
-  } catch (error) {}
+  } catch (error) {
+    res.status(404);
+  }
 });
 
-router.get("/:email", validateAuth, (req, res) => {
-  const email = req.params.email;
-  Users.findOne({
-    where: { email },
-  })
-    .then((users) =>
-      Favoritos.findAll({ where: { authorId: users.id } }).then(
-        (usuariofavoritos) => {
-          res.send(usuariofavoritos);
-        }
-      )
-    )
-    .catch((err) => console.log(err));
+router.get("/:email", validateAuth, async (req, res) => {
+  try {
+    console.log("llego2");
+    const email = req.params.email;
+
+    const user = await Users.findOne({
+      where: { email },
+    });
+    if (user) {
+      const favoritos = await Favoritos.findAll({
+        where: { authorId: user.id },
+      });
+      res.send(favoritos);
+    }
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 router.post("/", validateAuth, (req, res) => {

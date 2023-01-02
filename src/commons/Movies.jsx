@@ -39,6 +39,7 @@ const Movies = ({ data }) => {
               });
             })
             .catch((err) => {
+              console.log(err);
               if (err.response.data == "pelicula o serie existe")
                 return Swal.fire({
                   icon: "error",
