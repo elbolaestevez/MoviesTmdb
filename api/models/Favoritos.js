@@ -12,6 +12,10 @@ Favoritos.init(
     poster_path: {
       type: S.STRING,
     },
+    vote_average: {
+      type: S.STRING,
+    },
+
     idpeliculaoserie: {
       type: S.INTEGER,
     },

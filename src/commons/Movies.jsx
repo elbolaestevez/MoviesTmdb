@@ -18,6 +18,7 @@ const Movies = ({ data }) => {
           id: item.id,
           poster_path: item.poster_path,
           release_date: item.release_date || item.first_air_date,
+          vote_average: item.vote_average,
           tipo: item.title ? 1 : 2,
         };
         // { title, id, poster_path, release_date }
@@ -28,6 +29,7 @@ const Movies = ({ data }) => {
               title: itemdata.title,
               poster_path: itemdata.poster_path,
               release_date: itemdata.release_date,
+              vote_average: itemdata.vote_average,
               email: useremail,
               tipo: itemdata.tipo,
             })
@@ -70,7 +72,7 @@ const Movies = ({ data }) => {
               </Link>
             )}
 
-            <h5>{itemdata.release_date}</h5>
+            <h5>{itemdata.vote_average}pts</h5>
             <button onClick={addFavoritos}>Agregar Favoritos</button>
           </div>
         );

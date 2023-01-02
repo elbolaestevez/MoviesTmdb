@@ -20,6 +20,7 @@ const TopMovies = () => {
     <>
       {toppelicula.length ? <Carousel top={toppelicula} /> : null}
       <div className="buscador">
+        {console.log(data)}
         <SearchMovie setdata={setdata} />
         <SearchTvShow setdata={setdata} />
       </div>

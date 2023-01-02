@@ -42,8 +42,15 @@ router.get("/:email", validateAuth, async (req, res) => {
 });
 
 router.post("/", validateAuth, (req, res) => {
-  const { email, title, idpeliculaoserie, poster_path, release_date, tipo } =
-    req.body;
+  const {
+    email,
+    title,
+    idpeliculaoserie,
+    poster_path,
+    release_date,
+    tipo,
+    vote_average,
+  } = req.body;
 
   Users.findOne({
     where: { email },
@@ -58,6 +65,7 @@ router.post("/", validateAuth, (req, res) => {
         release_date,
         tipo,
         unico: idpeliculaoserie + email,
+        vote_average,
       })
         .then((favorito) => favorito.setAuthor(user))
         .then((favorito) => res.send(favorito))

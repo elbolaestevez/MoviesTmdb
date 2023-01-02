@@ -5,6 +5,7 @@ import "../css/favoritos.css";
 import { useSelector } from "react-redux";
 const Favoritos = () => {
   const [detailpelicula, setdetailpelicula] = useState([]);
+  const [deletepeli, setremove] = useState([]);
   const useremail = useSelector((state) => state.user.value);
   const removeFavoritos = (idpelicula) => {
     let unico = idpelicula + useremail;
@@ -12,7 +13,7 @@ const Favoritos = () => {
       let detailpeliculaborrado = detailpelicula.filter(
         (fav) => fav.idpelicula !== idpelicula
       );
-      //   setdetailpelicula(detailpelicula);
+      setremove(detailpelicula);
     });
 
     // });
@@ -23,7 +24,7 @@ const Favoritos = () => {
         .get(`/api/favoritos/${useremail}`)
         .then((res) => setdetailpelicula(res.data));
     }
-  }, [useremail]);
+  }, [useremail, deletepeli]);
   return (
     <div className="abuelofavoritos">
       {detailpelicula?.map(
@@ -32,6 +33,7 @@ const Favoritos = () => {
             title,
             poster_path,
             release_date,
+            vote_average,
             idpeliculaoserie,
             tipo,
             backdrop_path,
@@ -56,7 +58,7 @@ const Favoritos = () => {
                 </Link>
               )}
 
-              <p>{release_date}</p>
+              <p>{vote_average}</p>
               {tipo == 1 ? <p>Pelicula</p> : <p>Programa</p>}
 
               <img
