@@ -15,22 +15,38 @@ const Register = () => {
   const handleInputpassword = (event) => {
     setpassword(event.target.value);
   };
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios.post("/api/users/register", { email, password }).then((usuario) => {
-      if (usuario.data == "no encontre")
+
+    try {
+      const response = await axios.post("http://localhost:3001/graphql", {
+        query: `
+          mutation {
+            createUser(email: "${email}", password: "${password}") {
+              _id
+              email
+            }
+          }
+        `,
+      });
+
+      if (response.data.errors) {
         return Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: "usuario no se ha creado",
+          text: "Usuario no se ha creado",
         });
+      }
 
       Swal.fire({
         icon: "success",
         title: "Sent",
         text: "El usuario se ha creado",
       });
-    });
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <div className="login">
